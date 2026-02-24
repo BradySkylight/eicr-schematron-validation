@@ -1,5 +1,6 @@
 # eICR Validator
 ## Summary
+
 We have been provided a schematron file that is used by APHL for eICR validation.  Our goal in leveraging this file is to be able to produce expected schematron validation output based upon test/sample eICR messages.  We can then leverage the errors and the eICR messages to validate our functionality to find proper codes and augment them.  Then our team can leverage the same validator, using the provided schematron file, to ensure that our augmented eICR messages meet all requirements.
 
 ## Dependencies
@@ -15,9 +16,6 @@ We have been provided a schematron file that is used by APHL for eICR validation
 ## Schematron Output
 
 The output from this validator is not in the expected format for TTC functionality.  There is more work to do to translate the report.svrl file(s) into the proper XML format that TTC expects from APHL Schematron Error Output.  However, for now this tool can suffice as a validation tool.
-
-I am using the provided APHL Schematron to validate various eICR messages that are samples provided by [AIMs](https://ecr.aimsplatform.org/ehr-implementers/test-package.php).  Some of the messages have been modified to produce errors during validation, while others have not been modified to demonstrate what a valid eICR looks like. A sampling of what the output errors, related to our work, look like:
-
 
 ## Execution
 
