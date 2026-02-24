@@ -2,102 +2,77 @@ from pathlib import Path
 
 from saxonche import PySaxonProcessor
 
-CURRENT_DIR = Path(__file__).parent
+BASE_FOLDER = Path(__file__).parent / "eicr-validator"
 
+ECR_FOLDER = BASE_FOLDER / "eicr"
+SCHEMA_FOLDER = BASE_FOLDER / "schematron"
+XSLT_FOLDER = BASE_FOLDER / "schxslt"
+OUTPUT_FOLDER = BASE_FOLDER / "output"
 
-eicr_file = CURRENT_DIR / "schematron" / "eicr_covid.xml"
-schema_file = CURRENT_DIR / "schematron" / "APHL_TextToCodeSchematron_09252025.sch"
-xsl = CURRENT_DIR / "schematron" / "iso_svrl_for_xslt2.xsl"
+APHL_SCHEMATRON = SCHEMA_FOLDER / "APHL_TextToCodeSchematron_09252025.sch"
+XSLT_INCLUDE = XSLT_FOLDER / "include.xsl"
+XSLT_EXPAND = XSLT_FOLDER / "expand.xsl"
+XSLT_COMPILE = XSLT_FOLDER / "compile-for-svrl.xsl"
+STAGE1_OUTPUT = OUTPUT_FOLDER / "stage1.sch.tmp"
+STAGE2_OUTPUT = OUTPUT_FOLDER / "stage2.sch.tmp"
+VALIDATOR_OUTPUT = OUTPUT_FOLDER / "validator.xsl.tmp"
+VALIDATION_REPORT = OUTPUT_FOLDER / "validation_report.svrl"
 
-# Define paths to the necessary schxslt stylesheets
-include_xsl = CURRENT_DIR / "schematron" / "include.xsl"
-expand_xsl = CURRENT_DIR / "schematron" / "expand.xsl"
-compile_xsl = CURRENT_DIR / "schematron" / "compile-for-svrl.xsl"
-
-# Temporary files for intermediate steps
-stage1_sch = CURRENT_DIR / "schematron" / "stage1.sch.tmp"
-stage2_sch = CURRENT_DIR / "schematron" / "stage2.sch.tmp"
-validator_xsl = CURRENT_DIR / "schematron" / "validator.xsl.tmp"
-svrl_report = CURRENT_DIR / "schematron" / "validation_report.svrl"
 
 try:
     with PySaxonProcessor(license=False) as proc:
+        print(f"Saxon/C verion: {proc.version}")
         xsltproc = proc.new_xslt30_processor()
+        print("--- Step 1: Process Includes If not already present ")
 
-        print(f"--- Step 1: Include (using {include_xsl})")
-        # Set a custom URIResolver to handle the voc.xml file reference in the schema if needed.
-        # The 'document()' function in the schema handles relative paths by default in most cases.
+        if not STAGE1_OUTPUT.exists():
+            # Step 1: Process includes
+            # Note: For schxslt, you typically apply the XSLT to the SCH file as the source
+            xsltproc.transform_to_file(
+                source_file=str(APHL_SCHEMATRON),
+                stylesheet_file=str(XSLT_INCLUDE),
+                output_file=str(STAGE1_OUTPUT),
+            )
 
-        # Step 1: Process includes
-        # Note: For schxslt, you typically apply the XSLT to the SCH file as the source
-        xsltproc.transform_to_file(
-            source_file=schema_file,
-            stylesheet_file=include_xsl,
-            output_file=stage1_sch,
+        print("--- Step 2: Expand abstract rules If not already present ")
+        if not STAGE2_OUTPUT.exists():
+            # Step 2: Expand abstract rules
+            xsltproc.transform_to_file(
+                source_file=str(STAGE1_OUTPUT),
+                stylesheet_file=str(XSLT_EXPAND),
+                output_file=str(STAGE2_OUTPUT),
+            )
+
+        print("--- Step 3: Compile to an SVRL-producing XSLT stylesheet If not already present ")
+        if not VALIDATOR_OUTPUT.exists():
+            # Step 3: Compile to an SVRL-producing XSLT stylesheet
+            xsltproc.transform_to_file(
+                source_file=str(STAGE2_OUTPUT),
+                stylesheet_file=str(XSLT_COMPILE),
+                output_file=str(VALIDATOR_OUTPUT),
+            )
+
+        print(
+            f"--- Step 4: Validate XML using the generated XSLT for ALL ECR files in {ECR_FOLDER}",
         )
+        print(f"and save reports to {OUTPUT_FOLDER} ---")
+        for ecr_file_path in ECR_FOLDER.glob("*.xml"):
+            output_file = OUTPUT_FOLDER / f"{ecr_file_path.stem}_validation_report.svrl"
+            # Step 4: Apply the generated XSLT to the source XML
+            xsltproc.transform_to_file(
+                source_file=str(ecr_file_path),
+                stylesheet_file=str(VALIDATOR_OUTPUT),
+                output_file=str(output_file),
+            )
+            print(f"--- Validation complete. Report saved to {output_file}")
 
-        print(f"--- Step 2: Expand (using {expand_xsl})")
-        # Step 2: Expand abstract rules
-        # No parameters needed here for the basic example
-        xsltproc.transform_to_file(
-            source_file=stage1_sch,
-            stylesheet_file=expand_xsl,
-            output_file=stage2_sch,
-        )
-
-        print(f"--- Step 3: Compile to XSLT (using {compile_xsl})")
-        # Step 3: Compile to an SVRL-producing XSLT stylesheet
-        # Pass the vocabulary file path as a parameter if the schema/xsl expects it.
-        # In my_schema.sch, it uses document('voc.xml'), so it resolves automatically.
-        xsltproc.transform_to_file(
-            source_file=stage2_sch,
-            stylesheet_file=compile_xsl,
-            output_file=validator_xsl,
-        )
-
-        print(f"--- Step 4: Validate XML (using {eicr_file} and {validator_xsl})")
-        # Step 4: Apply the generated XSLT to the source XML
-        xsltproc.transform_to_file(
-            source_file=eicr_file,
-            stylesheet_file=validator_xsl,
-            output_file=svrl_report,
-        )
-
-        print(f"--- Validation complete. Report saved to {svrl_report}")
+        print("--- Validation complete process complete for all ECR files. ---")
 
         # Optional: Read and print the SVRL report for command line visibility
-        with Path.open(svrl_report, "r", encoding="utf-8") as f:
-            print("\n--- SVRL Report ---")
-            print(f.read())
+        # print("--- SVRL Validation Report ---")
+        # report_path = OUTPUT_FOLDER / "validation_report.svrl"
+        # with report_path.open() as report_file:
+        #     print(report_file.read())
 
 except Exception as e:  # noqa: BLE001
     print(f"An error occurred during validation: {e}")
-
-
-# sct_doc = etree.parse(schema_file)
-# schematron = isoschematron.Schematron(sct_doc, store_report=True)
-
-# doc = etree.parse(eicr_file)
-# is_valid = schematron.validate(doc)
-# report = schematron.validation_report
-
-# if is_valid:
-#     print(" VALID EICR")
-# else:
-#     print(etree.tostring(report, pretty_print=True).decode())
-
-
-# parser = etree.XMLParser()
-# # parser.resolvers.add(FileResolver())
-
-# schematron_doc = etree.parse(schema_file, parser)
-# iso_xslt = etree.parse(xsl, parser)
-# transform = etree.XSLT(iso_xslt)
-# validator_xslt = transform(schematron_doc)
-
-# validator = etree.XSLT(validator_xslt)
-# ccda_doc = etree.parse(eicr_file, parser)
-
-# result = validator(ccda_doc)
-
-# result.write("./output.xml", pretty_print=True)

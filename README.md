@@ -3,6 +3,18 @@
 We have been provided a schematron file that is used by APHL for eICR validation.  Our goal in leveraging this file is to be able to produce expected schematron validation output based upon test/sample eICR messages.  We can then leverage the errors and the eICR messages to validate our functionality to find proper codes and augment them.  Then our team can leverage the same validator, using the provided schematron file, to ensure that our augmented eICR messages meet all requirements.
 
 
+## Dependencies
+
+from saxonche import PySaxonProcessor
+
+https://codeberg.org/SchXslt/schxslt/releases/download/v1.10.1/schxslt-1.10.1-xslt-only.zip
+
+APHL schematron file
+
+includes voc_ttc.xml
+
+
+
 ## Schematron Output
 While we will not know for certain what the XPaths given by APHL will look like until we get more information from them, we can run Schematron ourselves to get an idea of what it may look like. Setting up and running Schematron is a fairly annoying process, but if you are interested, here is the repo with the code I used.
 

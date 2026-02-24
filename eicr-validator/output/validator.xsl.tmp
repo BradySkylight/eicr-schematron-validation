@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:transform xmlns:cda="urn:hl7-org:v3"
+               xmlns:error="https://doi.org/10.5281/zenodo.1495494#error"
+               xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+               xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+               xmlns:schxslt="https://doi.org/10.5281/zenodo.1495494"
+               xmlns:schxslt-api="https://doi.org/10.5281/zenodo.1495494#api"
+               xmlns:sdtc="urn:hl7-org:sdtc"
+               xmlns:svs="urn:ihe:iti:svs:2008"
+               xmlns:voc="http://www.lantanagroup.com/voc"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               version="2.0">
+   <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:dct="http://purl.org/dc/terms/"
+                    xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+      <dct:creator>
+         <dct:Agent>
+            <skos:prefLabel>SchXslt/1.10.1 SAXON/HE 12.9</skos:prefLabel>
+            <schxslt.compile.typed-variables xmlns="https://doi.org/10.5281/zenodo.1495494#">true</schxslt.compile.typed-variables>
+         </dct:Agent>
+      </dct:creator>
+      <dct:created>2026-02-24T14:32:35.255452-07:00</dct:created>
+   </rdf:Description>
+   <xsl:output indent="yes"/>
+   <xsl:param name="schxslt.validate.initial-document-uri" as="xs:string?"/>
+   <xsl:template name="schxslt.validate">
+      <xsl:apply-templates select="document($schxslt.validate.initial-document-uri)"/>
+   </xsl:template>
+   <xsl:template match="root()">
+      <xsl:param name="schxslt.validate.recursive-call"
+                 as="xs:boolean"
+                 select="false()"/>
+      <xsl:choose>
+         <xsl:when test="not($schxslt.validate.recursive-call) and (normalize-space($schxslt.validate.initial-document-uri) != '')">
+            <xsl:apply-templates select="document($schxslt.validate.initial-document-uri)">
+               <xsl:with-param name="schxslt.validate.recursive-call"
+                               as="xs:boolean"
+                               select="true()"/>
+            </xsl:apply-templates>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:variable name="metadata" as="element()?">
+               <svrl:metadata xmlns:dct="http://purl.org/dc/terms/"
+                              xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+                              xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
+                  <dct:creator>
+                     <dct:Agent>
+                        <skos:prefLabel>
+                           <xsl:value-of separator="/"
+                                         select="(system-property('xsl:product-name'), system-property('xsl:product-version'))"/>
+                        </skos:prefLabel>
+                     </dct:Agent>
+                  </dct:creator>
+                  <dct:created>
+                     <xsl:value-of select="current-dateTime()"/>
+                  </dct:created>
+                  <dct:source>
+                     <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/">
+                        <dct:creator>
+                           <dct:Agent>
+                              <skos:prefLabel>SchXslt/1.10.1 SAXON/HE 12.9</skos:prefLabel>
+                              <schxslt.compile.typed-variables xmlns="https://doi.org/10.5281/zenodo.1495494#">true</schxslt.compile.typed-variables>
+                           </dct:Agent>
+                        </dct:creator>
+                        <dct:created>2026-02-24T14:32:35.255452-07:00</dct:created>
+                     </rdf:Description>
+                  </dct:source>
+               </svrl:metadata>
+            </xsl:variable>
+            <xsl:variable name="report" as="element(schxslt:report)">
+               <schxslt:report>
+                  <xsl:call-template name="d11e23"/>
+               </schxslt:report>
+            </xsl:variable>
+            <xsl:variable name="schxslt:report" as="node()*">
+               <xsl:sequence select="$metadata"/>
+               <xsl:for-each select="$report/schxslt:document">
+                  <xsl:for-each select="schxslt:pattern">
+                     <xsl:sequence select="node()"/>
+                     <xsl:sequence select="../schxslt:rule[@pattern = current()/@id]/node()"/>
+                  </xsl:for-each>
+               </xsl:for-each>
+            </xsl:variable>
+            <svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
+               <svrl:ns-prefix-in-attribute-values prefix="voc" uri="http://www.lantanagroup.com/voc"/>
+               <svrl:ns-prefix-in-attribute-values prefix="svs" uri="urn:ihe:iti:svs:2008"/>
+               <svrl:ns-prefix-in-attribute-values prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+               <svrl:ns-prefix-in-attribute-values prefix="sdtc" uri="urn:hl7-org:sdtc"/>
+               <svrl:ns-prefix-in-attribute-values prefix="cda" uri="urn:hl7-org:v3"/>
+               <xsl:sequence select="$schxslt:report"/>
+            </svrl:schematron-output>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:template match="text() | @*" mode="#all" priority="-10"/>
+   <xsl:template match="/" mode="#all" priority="-10">
+      <xsl:apply-templates mode="#current" select="node()"/>
+   </xsl:template>
+   <xsl:template match="*" mode="#all" priority="-10">
+      <xsl:apply-templates mode="#current" select="@*"/>
+      <xsl:apply-templates mode="#current" select="node()"/>
+   </xsl:template>
+   <xsl:template name="d11e23">
+      <schxslt:document>
+         <schxslt:pattern id="d11e23">
+            <xsl:if test="exists(base-uri(root()))">
+               <xsl:attribute name="documents" select="base-uri(root())"/>
+            </xsl:if>
+            <xsl:for-each select="root()">
+               <svrl:active-pattern xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                    name="p-validate_labOrder_ttc"
+                                    id="p-validate_labOrder_ttc">
+                  <xsl:attribute name="documents" select="base-uri(.)"/>
+               </svrl:active-pattern>
+            </xsl:for-each>
+         </schxslt:pattern>
+         <schxslt:pattern id="d11e39">
+            <xsl:if test="exists(base-uri(root()))">
+               <xsl:attribute name="documents" select="base-uri(root())"/>
+            </xsl:if>
+            <xsl:for-each select="root()">
+               <svrl:active-pattern xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                    name="p-validate_resultObservation_ttc"
+                                    id="p-validate_resultObservation_ttc">
+                  <xsl:attribute name="documents" select="base-uri(.)"/>
+               </svrl:active-pattern>
+            </xsl:for-each>
+         </schxslt:pattern>
+         <xsl:apply-templates mode="d11e23" select="root()"/>
+      </schxslt:document>
+   </xsl:template>
+   <xsl:template match="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.44']"
+                 priority="1"
+                 mode="d11e23">
+      <xsl:param name="schxslt:patterns-matched" as="xs:string*"/>
+      <xsl:choose>
+         <xsl:when test="$schxslt:patterns-matched[. = 'd11e23']">
+            <schxslt:rule pattern="d11e23">
+               <xsl:comment xmlns:svrl="http://purl.oclc.org/dsdl/svrl">WARNING: Rule r-validate_labOrder_ttc for context "//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.44']" shadowed by preceding rule</xsl:comment>
+               <svrl:suppressed-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" id="r-validate_labOrder_ttc">
+                  <xsl:attribute name="context">//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.44']</xsl:attribute>
+                  <xsl:variable name="documentUri" as="xs:anyURI?" select="document-uri()"/>
+                  <xsl:if test="exists($documentUri)">
+                     <xsl:attribute name="document" select="$documentUri"/>
+                  </xsl:if>
+               </svrl:suppressed-rule>
+            </schxslt:rule>
+            <xsl:next-match>
+               <xsl:with-param name="schxslt:patterns-matched"
+                               as="xs:string*"
+                               select="$schxslt:patterns-matched"/>
+            </xsl:next-match>
+         </xsl:when>
+         <xsl:otherwise>
+            <schxslt:rule pattern="d11e23">
+               <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" id="r-validate_labOrder_ttc">
+                  <xsl:attribute name="context">//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.44']</xsl:attribute>
+                  <xsl:variable name="documentUri" as="xs:anyURI?" select="document-uri()"/>
+                  <xsl:if test="exists($documentUri)">
+                     <xsl:attribute name="document" select="$documentUri"/>
+                  </xsl:if>
+               </svrl:fired-rule>
+               <xsl:if test="not(         not(cda:code)          or cda:code/@code         or cda:code/cda:translation/@code)">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labTestNameOrdered-noCode">
+                     <xsl:attribute name="test">         not(cda:code)          or cda:code/@code         or cda:code/cda:translation/@code</xsl:attribute>
+                     <svrl:text>Text to Code: Lab Test Name Ordered does not have a @code attribute</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+               <xsl:if test="not(         not(cda:code/@code or cda:code/cda:translation/@code)          or cda:code[@codeSystem = '2.16.840.1.113883.6.1']          or cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.6.1'])">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labTestNameOrdered-wrongCodeSystem">
+                     <xsl:attribute name="test">         not(cda:code/@code or cda:code/cda:translation/@code)          or cda:code[@codeSystem = '2.16.840.1.113883.6.1']          or cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.6.1']</xsl:attribute>
+                     <svrl:text>Text to Code: Lab Test Name Ordered @codeSystem attribute is not LOINC 2.16.840.1.113883.6.1</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+            </schxslt:rule>
+            <xsl:next-match>
+               <xsl:with-param name="schxslt:patterns-matched"
+                               as="xs:string*"
+                               select="($schxslt:patterns-matched, 'd11e23')"/>
+            </xsl:next-match>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:template match="//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2']]"
+                 priority="0"
+                 mode="d11e23">
+      <xsl:param name="schxslt:patterns-matched" as="xs:string*"/>
+      <xsl:choose>
+         <xsl:when test="$schxslt:patterns-matched[. = 'd11e39']">
+            <schxslt:rule pattern="d11e39">
+               <xsl:comment xmlns:svrl="http://purl.oclc.org/dsdl/svrl">WARNING: Rule r-validate_resultObservation_ttc for context "//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2']]" shadowed by preceding rule</xsl:comment>
+               <svrl:suppressed-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                     id="r-validate_resultObservation_ttc">
+                  <xsl:attribute name="context">//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2']]</xsl:attribute>
+                  <xsl:variable name="documentUri" as="xs:anyURI?" select="document-uri()"/>
+                  <xsl:if test="exists($documentUri)">
+                     <xsl:attribute name="document" select="$documentUri"/>
+                  </xsl:if>
+               </svrl:suppressed-rule>
+            </schxslt:rule>
+            <xsl:next-match>
+               <xsl:with-param name="schxslt:patterns-matched"
+                               as="xs:string*"
+                               select="$schxslt:patterns-matched"/>
+            </xsl:next-match>
+         </xsl:when>
+         <xsl:otherwise>
+            <schxslt:rule pattern="d11e39">
+               <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                id="r-validate_resultObservation_ttc">
+                  <xsl:attribute name="context">//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2']]</xsl:attribute>
+                  <xsl:variable name="documentUri" as="xs:anyURI?" select="document-uri()"/>
+                  <xsl:if test="exists($documentUri)">
+                     <xsl:attribute name="document" select="$documentUri"/>
+                  </xsl:if>
+               </svrl:fired-rule>
+               <xsl:if test="not(         not(cda:code)          or cda:code/@code         or cda:code/cda:translation/@code)">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labTestNameResulted-noCode">
+                     <xsl:attribute name="test">         not(cda:code)          or cda:code/@code         or cda:code/cda:translation/@code</xsl:attribute>
+                     <svrl:text>Text to Code: Lab Test Name Resulted does not have a @code attribute</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+               <xsl:if test="not(         not(cda:code/@code or cda:code/cda:translation/@code)            or cda:code[@codeSystem = '2.16.840.1.113883.6.1']          or cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.6.1'])">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labTestNameResulted-wrongCode">
+                     <xsl:attribute name="test">         not(cda:code/@code or cda:code/cda:translation/@code)            or cda:code[@codeSystem = '2.16.840.1.113883.6.1']          or cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.6.1']</xsl:attribute>
+                     <svrl:text>Text to Code: Lab Test Name Resulted code and translation data elements @codeSystem attribute are not LOINC 2.16.840.1.113883.6.1</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+               <xsl:if test="not(         not(cda:value)          or cda:value[not(@nullFlavor)])">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labResultValue-noCode">
+                     <xsl:attribute name="test">         not(cda:value)          or cda:value[not(@nullFlavor)]</xsl:attribute>
+                     <svrl:text>Text to Code: Lab Result Value is nullFlavor</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+               <xsl:if test="not(         (cda:value[@nullFlavor])         or not(cda:value[@xsi:type='ST'])          or cda:interpretationCode)">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labResultValue-STNoInterp">
+                     <xsl:attribute name="test">         (cda:value[@nullFlavor])         or not(cda:value[@xsi:type='ST'])          or cda:interpretationCode</xsl:attribute>
+                     <svrl:text>Text to Code: Lab Result Value of type ST does not have an interpretation code</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+               <xsl:if test="not(         (cda:value[@nullFlavor])         or not(cda:value[@xsi:type='PQ'])          or cda:interpretationCode)">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labResultValue-PQNoInterp">
+                     <xsl:attribute name="test">         (cda:value[@nullFlavor])         or not(cda:value[@xsi:type='PQ'])          or cda:interpretationCode</xsl:attribute>
+                     <svrl:text>Text to Code: Lab Result Value of type PQ does not have an interpretation code</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+               <xsl:if test="not(         not(cda:value)          or cda:value[@nullFlavor]           or not(cda:value[@xsi:type='CD'])          or cda:value/@code           or cda:value/cda:translation/@code         or cda:interpretationCode)">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labResultValue-CDNoCode">
+                     <xsl:attribute name="test">         not(cda:value)          or cda:value[@nullFlavor]           or not(cda:value[@xsi:type='CD'])          or cda:value/@code           or cda:value/cda:translation/@code         or cda:interpretationCode</xsl:attribute>
+                     <svrl:text>Text to Code: Lab Result Value of type CD does not have a code or an interpretation code</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+               <xsl:if test="not(         not(cda:value)          or cda:value[@nullFlavor]           or not(cda:value[@xsi:type='CD'])          or not(cda:value/@code or cda:value/cda:translation/@code)           or cda:value[@codeSystem = '2.16.840.1.113883.6.96']          or cda:value/cda:translation[@codeSystem = '2.16.840.1.113883.6.96']         or cda:interpretationCode)">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labResultValue-CDWrongCodeSystem">
+                     <xsl:attribute name="test">         not(cda:value)          or cda:value[@nullFlavor]           or not(cda:value[@xsi:type='CD'])          or not(cda:value/@code or cda:value/cda:translation/@code)           or cda:value[@codeSystem = '2.16.840.1.113883.6.96']          or cda:value/cda:translation[@codeSystem = '2.16.840.1.113883.6.96']         or cda:interpretationCode</xsl:attribute>
+                     <svrl:text>Text to Code: Lab result Value of type CD does not have a SNOMED code or an interpretation code</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+               <xsl:if test="not(         not(cda:interpretationCode)          or cda:interpretationCode/@code=document('voc_ttc.xml')/voc:systems/voc:system[@valueSetOid='2.16.840.1.113883.1.11.78']/voc:code/@value)">
+                  <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                      location="{schxslt:location(.)}"
+                                      id="ttc-labResultInterpretationCode-WrongCodeSystem">
+                     <xsl:attribute name="test">         not(cda:interpretationCode)          or cda:interpretationCode/@code=document('voc_ttc.xml')/voc:systems/voc:system[@valueSetOid='2.16.840.1.113883.1.11.78']/voc:code/@value</xsl:attribute>
+                     <svrl:text>Text to Code: Result interpretationCode data element is not in ValueSet Observation Interpretation (HL7)</svrl:text>
+                  </svrl:failed-assert>
+               </xsl:if>
+            </schxslt:rule>
+            <xsl:next-match>
+               <xsl:with-param name="schxslt:patterns-matched"
+                               as="xs:string*"
+                               select="($schxslt:patterns-matched, 'd11e39')"/>
+            </xsl:next-match>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+   <xsl:function name="schxslt:location" as="xs:string">
+      <xsl:param name="node" as="node()"/>
+      <xsl:variable name="segments" as="xs:string*">
+         <xsl:for-each select="($node/ancestor-or-self::node())">
+            <xsl:variable name="position">
+               <xsl:number level="single"/>
+            </xsl:variable>
+            <xsl:choose>
+               <xsl:when test=". instance of element()">
+                  <xsl:value-of select="concat('Q{', namespace-uri(.), '}', local-name(.), '[', $position, ']')"/>
+               </xsl:when>
+               <xsl:when test=". instance of attribute()">
+                  <xsl:value-of select="concat('@Q{', namespace-uri(.), '}', local-name(.))"/>
+               </xsl:when>
+               <xsl:when test=". instance of processing-instruction()">
+                  <xsl:value-of select="concat('processing-instruction(&#34;', name(.), '&#34;)[', $position, ']')"/>
+               </xsl:when>
+               <xsl:when test=". instance of comment()">
+                  <xsl:value-of select="concat('comment()[', $position, ']')"/>
+               </xsl:when>
+               <xsl:when test=". instance of text()">
+                  <xsl:value-of select="concat('text()[', $position, ']')"/>
+               </xsl:when>
+               <xsl:otherwise/>
+            </xsl:choose>
+         </xsl:for-each>
+      </xsl:variable>
+      <xsl:value-of select="concat('/', string-join($segments, '/'))"/>
+   </xsl:function>
+</xsl:transform>
