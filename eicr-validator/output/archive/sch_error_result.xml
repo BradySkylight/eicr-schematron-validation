@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Results xmlns="urn:gov:nist:cdaGuideValidator">
+    <validationResult xmlns="">
+        <issue severity="severe-warnings">
+            <assertionID>Severe-Warning-004</assertionID>
+            <flag/>
+            <message>Severe Warning (Patient Id exists): SHALL contain at least one [1..*] ClinicalDocument/recordTarget/patientRole/id</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(cda:recordTarget/cda:patientRole/cda:id) &gt; 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="errors">
+            <assertionID>a-1198-5268</assertionID>
+            <flag/>
+            <message>This patientRole SHALL contain at least one [1..*] id (CONF:1198-5268).</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>cda:recordTarget/cda:patientRole[count(cda:id) &gt; 0]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="errors">
+            <assertionID>a-1198-5268</assertionID>
+            <flag/>
+            <message>This patientRole SHALL contain at least one [1..*] id (CONF:1198-5268).</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>cda:recordTarget/cda:patientRole[count(cda:id) &gt; 0]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="errors">
+            <assertionID>a-4527-146</assertionID>
+            <flag/>
+            <message>This patientRole SHALL contain at least one [1..*] id (CONF:4527-146).</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>cda:recordTarget/cda:patientRole[count(cda:id) &gt; 0]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-resultObservation-code-006</assertionID>
+            <flag/>
+            <message>Data Quality: Result observation code or translation data elements @codeSystem attribute is not LOINC 2.16.840.1.113883.6.1</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[8]/section[1]/entry[2]/organizer[1]/component[1]/observation[1]</context>
+            <test>not(cda:code) or cda:code[@nullFlavor] or cda:code[@codeSystem = '2.16.840.1.113883.6.1'] or cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.6.1']</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-currentEmployerPhone-001</assertionID>
+            <flag/>
+            <message>Data Quality: Current Employer telecom data element does not include a telephone value which is identified with prefix = "tel:"</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[11]/section[1]/entry[18]/observation[1]</context>
+            <test>not(cda:participant/cda:participantRole/cda:telecom                 ) or cda:participant/cda:participantRole/cda:telecom[contains(@value, 'tel:')]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-currentEmployerAddress-008</assertionID>
+            <flag/>
+            <message>Data Quality: Current Employer Address data element has no postalCode data element</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[11]/section[1]/entry[18]/observation[1]</context>
+            <test>cda:participant/cda:participantRole/cda:addr[@nullFlavor] or count(cda:participant/cda:participantRole/cda:addr/cda:postalCode) &gt; 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-countryOfNationality-002</assertionID>
+            <flag/>
+            <message>Data Quality: Country of Nationality value data element is not in ValueSet Country</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[11]/section[1]/entry[14]/observation[1]</context>
+            <test>                 not(cda:value) or                 cda:value[@nullFlavor] or cda:value/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = '2.16.840.1.113883.3.88.12.80.63']/voc:code/@value</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-countryOfResidence-002</assertionID>
+            <flag/>
+            <message>Data Quality: Country of Residence data element is not in ValueSet Country</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[11]/section[1]/entry[13]/observation[1]</context>
+            <test>                 not(cda:value) or                 cda:value[@nullFlavor] or cda:value/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = '2.16.840.1.113883.3.88.12.80.63']/voc:code/@value</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-patientRoleTelecom-003</assertionID>
+            <flag/>
+            <message>Data Quality: Patient telecom data element does not include an email value which is identified with prefix = "mailto:"</message>
+            <context>/ClinicalDocument[1]/recordTarget[1]/patientRole[1]</context>
+            <test>not(//cda:recordTarget/cda:patientRole/cda:telecom) or //cda:recordTarget/cda:patientRole/cda:telecom[contains(@value, 'mailto:')]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-guardian-011</assertionID>
+            <flag/>
+            <message>Data Quality: Guardian code data element is not present</message>
+            <context>/ClinicalDocument[1]/recordTarget[1]/patientRole[1]/patient[1]/guardian[1]</context>
+            <test>count(cda:code) !=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-clinicalDocument-author-028</assertionID>
+            <flag/>
+            <message>Data Quality: The author id data element has no @extension attribute</message>
+            <context>/ClinicalDocument[1]/author[1]/assignedAuthor[1]</context>
+            <test>not(cda:id) or cda:id[@nullFlavor] or (count(cda:id[@extension]) = count(cda:id))</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-encompassingEncounter-healthCareFacilityTelecom-003</assertionID>
+            <flag/>
+            <message>Data Quality: The encompassingEncounter healthCareFacility/serviceProviderOrganization telecom data element does not include an email value which is identified with prefix = "mailto:"</message>
+            <context>/ClinicalDocument[1]/componentOf[1]/encompassingEncounter[1]/location[1]/healthCareFacility[1]</context>
+            <test>not(cda:serviceProviderOrganization/cda:telecom) or cda:serviceProviderOrganization/cda:telecom[contains(@value, 'mailto:')]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-encompassingEncounter-healthCareFacilityName-001</assertionID>
+            <flag/>
+            <message>Data Quality: The encompassingEncounter healthCareFacility name data element is not present</message>
+            <context>/ClinicalDocument[1]/componentOf[1]/encompassingEncounter[1]/location[1]/healthCareFacility[1]</context>
+            <test>count(cda:location/cda:name)&gt; 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-travelHistory-effectiveTime-003</assertionID>
+            <flag/>
+            <message>Data Quality: Travel history observation effectiveTime low data element is not at least 8 characters yyyymmdd</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[11]/section[1]/entry[7]/act[1]</context>
+            <test>not(cda:effectiveTime) or cda:effectiveTime[@nullFlavor] or not(cda:effectiveTime/cda:low) or cda:effectiveTime/cda:low[@nullFlavor] or string-length(cda:effectiveTime/cda:low/@value) &gt;= 8</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-travelHistory-effectiveTime-005</assertionID>
+            <flag/>
+            <message>Data Quality: Travel history observation effectiveTime high data element is not at least 8 characters yyyymmdd</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[11]/section[1]/entry[7]/act[1]</context>
+            <test>not(cda:effectiveTime) or cda:effectiveTime[@nullFlavor] or not(cda:effectiveTime/cda:high) or cda:effectiveTime/cda:high[@nullFlavor] or string-length(cda:effectiveTime/cda:high/@value) &gt;= 8</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-labOrder-code-006</assertionID>
+            <flag/>
+            <message>Data Quality: Planned observation code data element @codeSystem attribute is not LOINC 2.16.840.1.113883.6.1</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[1]/section[1]/entry[4]/observation[1]</context>
+            <test>not(cda:code) or cda:code[@nullFlavor] or cda:code[@codeSystem = ''] or count(cda:code[@codeSystem]) = 0 or cda:code[@codeSystem = '2.16.840.1.113883.6.1']</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-problemObservation-code-003</assertionID>
+            <flag/>
+            <message>Data Quality: Problem observation code data element AND its translation are not in valueset Problem Type</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[5]/section[1]/entry[1]/act[1]/entryRelationship[2]/observation[1]</context>
+            <test>                     not(cda:code) or cda:code[@nullFlavor] or not(cda:code/@code)                     or cda:code/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = 'urn:hl7ii:2.16.840.1.113883.3.88.12.3221.7.2:2014-09-02']/voc:code/@value                     or cda:code/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = '2.16.840.1.113883.3.88.12.3221.7.2']/voc:code/@value                     or cda:code/cda:translation/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = 'urn:hl7ii:2.16.840.1.113883.3.88.12.3221.7.2:2014-09-02']/voc:code/@value                     or cda:code/cda:translation/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = '2.16.840.1.113883.3.88.12.3221.7.2']/voc:code/@value</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-problemObservation-code-003</assertionID>
+            <flag/>
+            <message>Data Quality: Problem observation code data element AND its translation are not in valueset Problem Type</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[5]/section[1]/entry[2]/act[1]/entryRelationship[2]/observation[1]</context>
+            <test>                     not(cda:code) or cda:code[@nullFlavor] or not(cda:code/@code)                     or cda:code/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = 'urn:hl7ii:2.16.840.1.113883.3.88.12.3221.7.2:2014-09-02']/voc:code/@value                     or cda:code/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = '2.16.840.1.113883.3.88.12.3221.7.2']/voc:code/@value                     or cda:code/cda:translation/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = 'urn:hl7ii:2.16.840.1.113883.3.88.12.3221.7.2:2014-09-02']/voc:code/@value                     or cda:code/cda:translation/@code = document('CDAR2_IG_PHCASERPT_R2_STU3.1_VOCABULARY.xml')/voc:systems/voc:system[@valueSetOid = '2.16.840.1.113883.3.88.12.3221.7.2']/voc:code/@value</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-immunizationActivity-doseQuantity-002</assertionID>
+            <flag/>
+            <message>Data Quality: Immunization doseQuantity data element is nullFlavor</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[10]/section[1]/entry[1]</context>
+            <test>not(cda:substanceAdministration/cda:doseQuantity) or cda:substanceAdministration/cda:doseQuantity[not(@nullFlavor)]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-immunizationActivity-routeCode-001</assertionID>
+            <flag/>
+            <message>Data Quality: Immunization routeCode data element is nullFlavor</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[10]/section[1]/entry[1]</context>
+            <test>not(cda:substanceAdministration/cda:routeCode) or cda:substanceAdministration/cda:routeCode[not(@nullFlavor)]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-immunizationActivity-doseQuantity-002</assertionID>
+            <flag/>
+            <message>Data Quality: Immunization doseQuantity data element is nullFlavor</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[10]/section[1]/entry[2]</context>
+            <test>not(cda:substanceAdministration/cda:doseQuantity) or cda:substanceAdministration/cda:doseQuantity[not(@nullFlavor)]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-immunizationActivity-routeCode-001</assertionID>
+            <flag/>
+            <message>Data Quality: Immunization routeCode data element is nullFlavor</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[10]/section[1]/entry[2]</context>
+            <test>not(cda:substanceAdministration/cda:routeCode) or cda:substanceAdministration/cda:routeCode[not(@nullFlavor)]</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-serviceProviderOrganizationId-001</assertionID>
+            <flag/>
+            <message>Data Quality: The encompassingEncounter healthCareFacility/serviceProviderOrganization id data element is not present.</message>
+            <context>/ClinicalDocument[1]/componentOf[1]/encompassingEncounter[1]/location[1]/healthCareFacility[1]/serviceProviderOrganization[1]</context>
+            <test>cda:id</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_quality">
+            <assertionID>dq-problem_DateofOnset_002</assertionID>
+            <flag/>
+            <message>Data Quality: Problem observation effectiveTime low data element is not at least 8 characters (yyyymmdd)</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[5]/section[1]/entry[1]/act[1]/entryRelationship[2]/observation[1]</context>
+            <test>cda:effectiveTime[@nullFlavor] or cda:effectiveTime/cda:low[@nullFlavor] or not(cda:effectiveTime/cda:low/@value) or cda:effectiveTime/cda:low/string-length(@value) &gt; 7</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-resultObservation</assertionID>
+            <flag/>
+            <message> 4 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.2']]/cda:code)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-resultObservation-interpretationCode</assertionID>
+            <flag/>
+            <message> 4 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.2']]/cda:interpretationCode)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-resultObservation-referenceRange</assertionID>
+            <flag/>
+            <message> 3 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.2']]/cda:referenceRange)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-resultOrganizer</assertionID>
+            <flag/>
+            <message> 3 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.1']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-problemObservation</assertionID>
+            <flag/>
+            <message> 6 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.4']]/cda:code)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-medicationActivity</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.16']]/cda:statusCode)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-medicationAdministration-routeCode</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.16']]/cda:routeCode)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-immunizationActivity</assertionID>
+            <flag/>
+            <message> 2 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.52']]/cda:statusCode)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-immunizationActivity-doseQuantity</assertionID>
+            <flag/>
+            <message> 2 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.52']]/cda:doseQuantity)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-immunizationActivity-routeCode</assertionID>
+            <flag/>
+            <message> 2 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.52']]/cda:routeCode)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-plannedObservation</assertionID>
+            <flag/>
+            <message> 2 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.44']]/cda:code)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-pregnancyObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.15.3.8'])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-travelObservation</assertionID>
+            <flag/>
+            <message> 6 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:act/cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.1'])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-specimenSource</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']]/cda:targetSiteCode)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-specimenCollectionProcedure</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-specimenCollectionDate</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']]/cda:effectiveTime)=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-disabilityStatus</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.47']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-tribalAffiliation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.48']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-currentOccupation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.217']][cda:statusCode[@code = 'active']][not(cda:effectiveTime/cda:high)])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-usualOccupationObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.221']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-currentIndustry</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.216']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-usualIndustryObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.219']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-occupationalHazardObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.215']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-historyofEmploymentStatusObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.212']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-therapeuticMedicationResponseObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.37']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-lastMenstrualPeriod</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.30.3.34'])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-vitalSignObservation</assertionID>
+            <flag/>
+            <message> 9 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-procedureActivityAct</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-procedureActivityObservation</assertionID>
+            <flag/>
+            <message> 2 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-procedureActivityProcedure</assertionID>
+            <flag/>
+            <message> 2 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-plannedAct</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-plannedProcedure</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-exposureContactInformationObservation</assertionID>
+            <flag/>
+            <message> 3 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.52']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-countryOfNationalityObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.54']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-vaccineCredentialPatientAssertionObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.55']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-countryOfResidenceObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.53']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-pregnancyStatus</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.293']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-estimatedDateofDeliveryMethod</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.297'])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-gestationalAgeDetermination</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.280'])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-pregnancyOutcome</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284'])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-postpartumStatus</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.285'])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-purposeOfTravelObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.51']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-transportationDetailsOrganizer</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.50']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-transportationDetailsObservation</assertionID>
+            <flag/>
+            <message> 2 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.49']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-characteristicsOfHomeEnvironmentObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.109']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-genderIdentityObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.34.3.45']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCount-emergencyOutbreakInformationObservation</assertionID>
+            <flag/>
+            <message> 1 </message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.40']])=0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCheck-labOrderTrigger</assertionID>
+            <flag/>
+            <message>DATA CHECK: this eICR has at least one Lab Order Trigger</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation/cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.4']) = 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCheck-problemTrigger</assertionID>
+            <flag/>
+            <message>DATA CHECK: this eICR has at least one Problem Observation Trigger</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation/cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3']) = 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCheck-labResultTrigger</assertionID>
+            <flag/>
+            <message>DATA CHECK: this eICR has at least one Lab Result Trigger</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:observation/cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.2']) = 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCheck-languageCommunication</assertionID>
+            <flag/>
+            <message>DATA CHECK: this eICR has at least one patient languageCommunication data element</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:languageCommunication) = 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCheck-guardian</assertionID>
+            <flag/>
+            <message>DATA CHECK: this eICR has at least one patient guardian</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:guardian) = 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCheck-guardian-telecom</assertionID>
+            <flag/>
+            <message>DATA CHECK: this eICR has at least one patient guardian telecom data element</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:guardian/cda:telecom) = 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="data_check">
+            <assertionID>dq-dataCheck-guardian-addr</assertionID>
+            <flag/>
+            <message>DATA CHECK: this eICR has at least one patient guardian address data element</message>
+            <context>/ClinicalDocument[1]</context>
+            <test>count(//cda:guardian/cda:addr) = 0</test>
+            <specification/>
+        </issue>
+    </validationResult>
+    <validationResult xmlns="">
+        <issue severity="text_to_code">
+            <assertionID>ttc-labTestNameResulted-wrongCode</assertionID>
+            <flag/>
+            <message>Text to Code: Lab Test Name Resulted code and translation data elements @codeSystem attribute are not LOINC 2.16.840.1.113883.6.1</message>
+            <context>/ClinicalDocument[1]/component[1]/structuredBody[1]/component[8]/section[1]/entry[2]/organizer[1]/component[1]/observation[1]</context>
+            <test>                 not(cda:code/@code or cda:code/cda:translation/@code)                    or cda:code[@codeSystem = '2.16.840.1.113883.6.1']                  or cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.6.1']</test>
+            <specification/>
+        </issue>
+    </validationResult>
+</Results>
