@@ -23,7 +23,7 @@ The output from the various steps in the eICR validation process are stored here
 
 To execute the validation process, which is the standard eICR validation against the APHL Schematron file use the `--validation` flag at the command prompt.  The output for this process is still in the *_validation_report.svrl format. 
 
-~~**NOTEThere is more work to do to translate the report.svrl file(s) into the proper XML format that TTC expects from APHL Schematron Error Output.  However, for now this process pathway can suffice as a eicr validation tool to ensure the eicr in question meets the goals of APHL.**~~
+_**NOTE: There is more work to do to translate the report.svrl file(s) into the proper XML format that TTC expects from APHL Schematron Error Output.  However, for now this process pathway can suffice as a eicr validation tool to ensure the eicr in question meets the goals of APHL.**_
 
 ### AIMS Output Process
 
