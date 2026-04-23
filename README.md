@@ -32,15 +32,15 @@ To execute the aims output process, which leverages a manually created file (Sti
 ## Execution
 
 - Add any eICR files to the `eicr` folder in the project
-- At a terminal at the base of the repo execute `python main.py` with whatever flag choice (see below)
+- At a terminal at the base of the repo execute `python main.py` with whatever flag choice _(see image below)_
    - You will see the progress of the process
    - The resulting validation report files will be stored in the `output/result` folder with a corresponding name to the eicr file in question.
 
 ### Options:
-  - -h, --help        show this help message and exit
-  - --validation      Run Standard eICR Validation either against EVERY eicr file in the `eicr-validator/eicr` folder or the one specified with the --file flag.
-  - --aims_output     Run eICR Validation to get expected AIMS Output either against EVERY eicr file in the `eicr-validator/eicr` folder or the one specified with the --file flag.
-  - --file FILE       The name of the eICR file to validate - MUST BE IN THE 'eicr' folder
-  - --redo_all_steps  This is ONLY used for the `validation` pathway.  If you want to re-perform all XSL steps in the validation process.  It's recommended you use this option each time.
+  - -h, --help:       This will show the help message and exit _(see image below)_
+  - --validation:     To run Standard eICR Validation either against EVERY eicr file in the `eicr-validator/eicr` folder or the one specified with the --file flag.
+  - --aims_output:    To run eICR Validation to get expected AIMS Output either against EVERY eicr file in the `eicr-validator/eicr` folder or the one specified with the --file flag.
+  - --file:       To specify the name of a single eICR file to validate to process - **MUST BE IN THE 'eicr' folder**
+  - --redo_all_steps:  This is ONLY used for the `validation` pathway.  If you want to re-perform all XSL steps in the validation process.  It's recommended you use this option each time.
 
 ![Available Commands](image.png)
