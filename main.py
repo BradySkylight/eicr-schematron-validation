@@ -14,7 +14,7 @@ OUTPUT_FOLDER = BASE_FOLDER / "output"
 RESULT_FOLDER = OUTPUT_FOLDER / "result"
 
 APHL_SCHEMATRON = SCHEMA_FOLDER / "APHL_TextToCodeSchematron_09252025.sch"
-APHL_SCHEMATRON_ERROR_FORMAT = SCHEMA_FOLDER / "aims_output" / "Stitched_VS_report.xsl"
+APHL_SCHEMATRON_ERROR_FORMAT = SCHEMA_FOLDER / "aims_output" / "Stitched_VS_report_06052026.xsl"
 XSLT_INCLUDE = XSLT_FOLDER / "include.xsl"
 XSLT_EXPAND = XSLT_FOLDER / "expand.xsl"
 XSLT_COMPILE = XSLT_FOLDER / "compile-for-svrl.xsl"
